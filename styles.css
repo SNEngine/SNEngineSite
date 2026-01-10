@@ -92,15 +92,33 @@ body {
 .hero {
     text-align: center;
     padding: 80px 20px 60px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
     position: relative;
     overflow: hidden;
     color: #333;
+    min-height: 100vh; /* Ensure it fills the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* YAML Editor Hero Section - Different background */
 .yaml-hero-section {
     background: linear-gradient(135deg, #f0f7f5 0%, #e0f0e9 100%);
+    color: #333;
+}
+
+/* Adjust padding for mobile to ensure content is properly positioned */
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 15px 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 40px 10px 20px;
+    }
 }
 
 .hero::before {
@@ -115,12 +133,95 @@ body {
     pointer-events: none;
 }
 
+/* Background Video Styles */
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.7; /* Adjust this value to control darkness */
+    /* Ensure video remains centered and covers entire area */
+    min-width: 100%;
+    min-height: 100%;
+    /* Prevent overflow on mobile */
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Blurred overlay background for entire hero section */
+.hero-blur-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Increased opacity for better contrast */
+    backdrop-filter: blur(10px);
+    z-index: 0; /* Behind content but above video */
+}
+
+/* Overlay to darken the video further if needed */
+.hero-content {
+    position: relative;
+    z-index: 1;
+    /* Ensure content is properly spaced within the flex container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 16px;
+}
+
+/* Hide video controls */
+.hero-video::-webkit-media-controls {
+    display: none !important;
+}
+
+/* Video compatibility for different browsers */
+@supports not (object-fit: cover) {
+    .hero-video {
+        /* Fallback for browsers that don't support object-fit */
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Promo Section */
+.promo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px 40px; /* Reduced top padding to minimize gap with hero section */
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+}
+
+.promo-section img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    margin: 0 auto;
+}
+
+/* Dark mode for promo section */
+@media (prefers-color-scheme: dark) {
+    .promo-section {
+        background: linear-gradient(135deg, #2c2c2c 0%, #1a1a2e 100%);
+    }
+}
+
 .hero h2 {
     position: relative;
     font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #222;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 0 0 20px 0;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .hero p {
@@ -128,14 +229,33 @@ body {
     font-size: 1.2rem;
     max-width: 700px;
     margin: 0 auto 40px;
-    color: #555;
+    color: white;
     line-height: 1.6;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Specific styles for hero content elements */
+.hero-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.hero-content .hero-buttons {
+    margin-bottom: 40px;
+}
+
+.hero-content img {
+    margin-top: 20px;
 }
 
 /* Dark mode adjustments for hero section */
 @media (prefers-color-scheme: dark) {
     .hero {
-        background: linear-gradient(135deg, #2c2c2c 0%, #1a1a2e 100%);
         color: #eee;
     }
 
@@ -146,6 +266,51 @@ body {
 
     .hero p {
         color: #ccc;
+    }
+
+    .yaml-hero-section {
+        background: linear-gradient(135deg, #2a3a3a 0%, #1a2a2a 100%);
+        color: #eee;
+    }
+
+    .yaml-hero-section h2 {
+        color: #fff;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .yaml-hero-section p {
+        color: #ccc;
+    }
+}
+
+/* Light mode adjustments for hero section */
+@media (prefers-color-scheme: light) {
+    .hero {
+        color: #333;
+    }
+
+    .hero h2 {
+        color: #1a1a1a;
+        text-shadow: none;
+    }
+
+    .hero p {
+        color: #444;
+        text-shadow: none;
+    }
+
+    .yaml-hero-section {
+        color: #333;
+    }
+
+    .yaml-hero-section h2 {
+        color: #1a1a1a;
+        text-shadow: none;
+    }
+
+    .yaml-hero-section p {
+        color: #444;
+        text-shadow: none;
     }
 }
 
@@ -174,10 +339,13 @@ body {
     color: white;
     cursor: pointer;
     transition: 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .cta:hover {
     background: #b10000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .author-btn {
@@ -189,20 +357,26 @@ body {
     color: white;
     cursor: pointer;
     transition: 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .author-btn:hover {
     background: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Demo Game button (фиолетовый) */
 .demo-btn {
     background-color: #9b59b6;
     color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .demo-btn:hover {
     background-color: #8e44ad;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Section */
@@ -540,7 +714,7 @@ body {
 @media (prefers-color-scheme: dark) {
     body { background: #1e1e1e; color: #eee; }
     .header { background: rgba(17,17,17,0.6); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .hero { background: #2c2c2c; }
+    .hero { color: #eee; }
     .feature {
         background: rgba(50,50,50,0.25);
         border: 1px solid rgba(255,255,255,0.08);
@@ -566,24 +740,99 @@ body {
 @media (max-width: 768px) {
     .header { flex-direction: column; align-items: flex-start; padding: 10px 15px; }
     .logo { font-size: 22px; margin-bottom: 8px; }
-    .nav { flex-wrap: wrap; gap: 10px; width: 100%; }
-    .hero { padding: 40px 15px; }
+    .nav {
+        flex-wrap: wrap;
+        gap: 8px;
+        width: 100%;
+        justify-content: center; /* Center nav items to prevent overflow */
+    }
+    .hero {
+        padding: 40px 15px;
+        min-height: auto; /* Allow to adjust based on content */
+    }
+    .hero-content {
+        padding: 20px;
+        margin: 0 10px;
+        max-width: calc(100% - 20px); /* Account for margins */
+    }
     .hero img { width: 100%; max-width: 100%; height: auto; }
-    .cta, .author-btn, .demo-btn { width: 100%; text-align: center; font-size: 14px; padding: 10px 0; margin-top: 15px; margin-bottom: 30px; }
+    .cta, .author-btn, .demo-btn {
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        padding: 10px 0; /* Increased padding for better touch targets */
+        margin-top: 8px; /* Reduced margin */
+        margin-bottom: 10px; /* Reduced margin */
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 8px; /* Further reduce gap between buttons */
+    }
     .section { padding: 40px 15px; }
     .section h2 { font-size: 24px; }
     .platforms { flex-direction: column; gap: 20px; }
     .feature { flex-direction: column !important; gap: 20px; }
     .feature img { width: 100%; max-width: 100%; }
     .features-list { width: 100%; gap: 30px; }
+    .promo-section {
+        padding: 10px 15px 30px;
+    }
+    .promo-section img {
+        max-width: 100%;
+        height: auto;
+    }
+    .hero h2 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
 }
 
 /* Extra small screens */
 @media (max-width: 480px) {
     .header { padding: 8px 12px; }
     .logo { font-size: 20px; }
-    .nav { gap: 8px; }
+    .nav {
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
     .hero { padding: 30px 10px; }
+    .hero-content {
+        padding: 15px;
+        margin: 0 5px;
+        max-width: calc(100% - 10px);
+    }
     .section h2 { font-size: 20px; }
-    .cta, .author-btn, .demo-btn { font-size: 13px; padding: 8px 0; margin-top: 12px; margin-bottom: 20px; }
+    .cta, .author-btn, .demo-btn {
+        font-size: 13px;
+        padding: 10px 0; /* Increased padding for better touch targets */
+        margin-top: 6px;
+        margin-bottom: 8px; /* Reduced margin */
+    }
+    .hero-buttons {
+        gap: 6px; /* Further reduce gap between buttons */
+    }
+    .promo-section {
+        padding: 5px 10px 20px;
+    }
+    .hero h2 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+    .hero p {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    /* Ensure video fits properly on small screens */
+    .hero-video {
+        object-position: center;
+        min-width: 100%;
+        min-height: 100%;
+        width: 100%;
+        height: 100%;
+    }
 }

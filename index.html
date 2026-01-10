@@ -23,13 +23,28 @@
 </header>
 
 <section class="hero" id="main">
-  <h2>Create Visual Novels in Unity Without Complex Coding</h2>
-  <p>Scene editor, dialogue builder, and export directly in Unity.</p>
-  <div class="hero-buttons">
-    <button class="cta" onclick="window.open('https://github.com/Siphoin/SNEngine', '_blank')">Download / GitHub</button>
-    <button class="cta demo-btn" onclick="window.open('https://github.com/Siphoin/Nagatoro-Novel-Game', '_blank')">Demo Game</button>
-    <button class="author-btn" onclick="window.open('https://github.com/Siphoin', '_blank')">Author</button>
+  <!-- Background Video -->
+  <video autoplay muted playsinline class="hero-video">
+    <source src="images/background-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Blurred overlay background for entire hero section -->
+  <div class="hero-blur-overlay"></div>
+
+  <div class="hero-content">
+    <h2>Create Visual Novels in Unity Without Complex Coding</h2>
+    <p>Scene editor, dialogue builder, and export directly in Unity.</p>
+    <div class="hero-buttons">
+      <button class="cta" onclick="window.open('https://github.com/Siphoin/SNEngine', '_blank')">Download / GitHub</button>
+      <button class="cta demo-btn" onclick="window.open('https://github.com/Siphoin/Nagatoro-Novel-Game', '_blank')">Demo Game</button>
+      <button class="author-btn" onclick="window.open('https://github.com/Siphoin', '_blank')">Author</button>
+    </div>
   </div>
+</section>
+
+<!-- Promo Image Section -->
+<section class="promo-section">
   <img src="images/promo.png" alt="Promo Image">
 </section>
 
@@ -138,6 +153,21 @@
         link.classList.add('active');
       }
     });
+
+    // Ensure video loops properly with a delay
+    const video = document.querySelector('.hero-video');
+    if (video) {
+      // Remove the default loop attribute and handle looping manually
+      video.loop = false;
+
+      video.addEventListener('ended', function() {
+        // Add a delay before restarting the video
+        setTimeout(() => {
+          this.currentTime = 0;
+          this.play();
+        }, 5000); // 5000ms (5 seconds) delay before restart
+      });
+    }
 
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('resize', revealOnScroll);

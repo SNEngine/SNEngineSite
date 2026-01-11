@@ -43,19 +43,28 @@ function initializeMainPage() {
     }
   });
 
-  // Ensure video loops properly with a delay
+  // Ensure video loops properly with a delay on desktop, disable on mobile
   const video = document.querySelector('.hero-video');
   if (video) {
-    // Remove the default loop attribute and handle looping manually
-    video.loop = false;
+    // Check if on mobile device
+    const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    video.addEventListener('ended', function() {
-      // Add a delay before restarting the video
-      setTimeout(() => {
-        this.currentTime = 0;
-        this.play();
-      }, 5000); // 5000ms (5 seconds) delay before restart
-    });
+    if (isMobile) {
+      // On mobile, hide the video and don't play it
+      video.style.display = 'none';
+    } else {
+      // On desktop, enable video playback
+      video.style.display = 'block';
+      video.loop = false;
+
+      video.addEventListener('ended', function() {
+        // Add a delay before restarting the video
+        setTimeout(() => {
+          this.currentTime = 0;
+          this.play();
+        }, 5000); // 5000ms (5 seconds) delay before restart
+      });
+    }
   }
 
   window.addEventListener('scroll', revealOnScroll);
@@ -79,10 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAndRun();
 
   // Listen for language changes to update page-specific content
-  window.addEventListener('storage', (event) => {
-    if (event.key === 'snengine-lang' && event.newValue !== event.oldValue) {
-      // Re-initialize the page to update any page-specific content
-      initializeMainPage();
-    }
+  window.addEventListener('languageChanged', () => {
+    initializeMainPage();
   });
 });

@@ -120,6 +120,23 @@ body {
         -webkit-text-fill-color: transparent;
         animation: shine 3s linear infinite;
     }
+
+    /* Light mode for burger menu */
+    .burger-menu span {
+        background: #333; /* Dark color for light mode */
+    }
+
+    .burger-menu.active span:nth-child(1) {
+        background: #333; /* Ensure color consistency in light mode */
+    }
+
+    .burger-menu.active span:nth-child(2) {
+        background: #333; /* Ensure color consistency in light mode */
+    }
+
+    .burger-menu.active span:nth-child(3) {
+        background: #333; /* Ensure color consistency in light mode */
+    }
 }
 
 /* Анимация для темной темы */
@@ -137,6 +154,22 @@ body {
     }
     .logo-icon-dark {
         display: inline;
+    }
+
+    .burger-menu span {
+        background: #ddd; /* Lighter color for dark mode */
+    }
+
+    .burger-menu.active span:nth-child(1) {
+        background: #ddd; /* Ensure color consistency in dark mode */
+    }
+
+    .burger-menu.active span:nth-child(2) {
+        background: #ddd; /* Ensure color consistency in dark mode */
+    }
+
+    .burger-menu.active span:nth-child(3) {
+        background: #ddd; /* Ensure color consistency in dark mode */
     }
 }
 
@@ -171,6 +204,32 @@ body {
 .nav a.active {
     color: #d60000;
     background: rgba(214, 0, 0, 0.15);
+}
+
+.download-btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background: #d60000;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-family: 'Roboto', Arial, sans-serif;
+    display: inline-flex; /* Changed to inline-flex for better alignment */
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+    min-width: 100px; /* Consistent minimum width */
+    text-align: center; /* Center the text */
+}
+
+.download-btn:hover {
+    background: #b10000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Language Selector */
@@ -253,12 +312,18 @@ body {
 .yaml-hero-section {
     background: linear-gradient(135deg, #f0f7f5 0%, #e0f0e9 100%);
     color: #333;
+    text-shadow: none; /* Default shadow, will be overridden in light mode */
 }
 
 /* Adjust padding for mobile to ensure content is properly positioned */
 @media (max-width: 768px) {
     .hero {
         padding: 60px 15px 40px;
+    }
+
+    /* Ensure YAML editor hero section maintains consistency */
+    .yaml-hero-section {
+        background: linear-gradient(135deg, #f0f7f5 0%, #e0f0e9 100%);
     }
 }
 
@@ -383,6 +448,7 @@ body {
     font-family: 'Roboto', Arial, sans-serif;
 }
 
+
 /* Specific styles for hero content elements */
 .hero-content h2 {
     margin-top: 0;
@@ -434,36 +500,30 @@ body {
     }
 }
 
-/* Light mode adjustments for hero section */
+/* Main hero section styles for both light and dark modes */
+.hero-main h2 {
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.hero-main p {
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Light mode for main hero section */
 @media (prefers-color-scheme: light) {
-    .hero {
-        color: #333;
+    .hero-main h2 {
+        color: white;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     }
 
-    .hero h2 {
-        color: #1a1a1a;
-        text-shadow: none;
-    }
-
-    .hero p {
-        color: #444;
-        text-shadow: none;
-    }
-
-    .yaml-hero-section {
-        color: #333;
-    }
-
-    .yaml-hero-section h2 {
-        color: #1a1a1a;
-        text-shadow: none;
-    }
-
-    .yaml-hero-section p {
-        color: #444;
-        text-shadow: none;
+    .hero-main p {
+        color: white;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
 }
+
 
 .hero img {
     max-width: 100%;
@@ -492,6 +552,8 @@ body {
     transition: 0.2s;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     font-family: 'Roboto', Arial, sans-serif;
+    min-width: 120px; /* Ensure minimum width for text */
+    text-align: center;
 }
 
 .cta:hover {
@@ -511,6 +573,8 @@ body {
     transition: 0.2s;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     font-family: 'Roboto', Arial, sans-serif;
+    min-width: 120px; /* Ensure minimum width for text */
+    text-align: center;
 }
 
 .author-btn:hover {
@@ -890,29 +954,52 @@ body {
 }
 
 @media (max-width: 768px) {
+    .features-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Центрируем карточки в контейнере */
+        padding: 0 20px;
+        gap: 30px; /* Уменьшаем зазор между карточками */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
     .feature {
         flex-direction: column !important;
-        text-align: center;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding: 25px;
+        text-align: center !important; /* Текст по центру для красоты */
+        margin: 0 auto !important; /* Убираем все смещения десктопа */
+        padding: 20px;
+        width: 100%;
+        max-width: 100%; /* Карточка занимает всю ширину за вычетом padding */
+        align-items: center !important;
+        box-sizing: border-box;
+    }
+
+    .feature.left,
+    .feature.right {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        justify-content: center !important;
+    }
+
+    .feature-content {
+        padding: 0 !important;
+        margin-bottom: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Центрируем заголовок и текст внутри */
+    }
+
+    .feature-content p,
+    .feature-card p {
+        text-align: center !important; /* Исправляем левое выравнивание */
+        width: 100%;
     }
 
     .feature-img-container {
         width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .feature-content {
-        min-width: auto;
-        width: 100%;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-bottom: 20px;
-        align-items: flex-start;
-    }
-    .feature-content h3, .feature-content p, .feature-card h3, .feature-card p {
-        text-align: left;
+        flex: none; /* Убираем фиксированную ширину 500px */
     }
 }
 
@@ -989,7 +1076,7 @@ body {
     background: #222;
     color: #aaa;
     text-align: center;
-    padding: 20px;
+    padding: 8px; /* Еще меньший padding для меньшей высоты */
     margin-top: 40px;
 }
 
@@ -997,7 +1084,14 @@ body {
 @media (prefers-color-scheme: dark) {
     body { background: #1e1e1e; color: #eee; }
     .header { background: rgba(17,17,17,0.6); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .hero { color: #eee; }
+    .hero {
+        color: #eee;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .yaml-hero-section {
+        color: #eee;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
     .feature {
         background: rgba(50,50,50,0.25);
         border: 1px solid rgba(255,255,255,0.08);
@@ -1017,6 +1111,24 @@ body {
 @media (prefers-color-scheme: light) {
     .ios-light { display: inline; }
     .ios-dark { display: none; }
+
+    /* Light mode hero */
+    .hero {
+        color: white;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Light mode yaml hero section */
+    .yaml-hero-section {
+        color: white;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Light mode footer */
+    .footer {
+        background: #f0f0f0;
+        color: #555;
+    }
 }
 
 /* Mobile adjustments */
@@ -1039,23 +1151,147 @@ body {
         width: 100%;
     }
 
-    .nav {
-        justify-content: center;
-        margin-top: 10px;
-    }
-    .header-content { flex-direction: column; width: 100%; }
-    .logo { font-size: 22px; margin-bottom: 8px; }
-    .logo-icon { width: 28px; height: 28px; }
-    .nav {
-        flex-wrap: wrap;
-        gap: 8px;
+    .mobile-nav-container {
+        display: flex;
+        align-items: center;
         width: 100%;
-        justify-content: center; /* Center nav items to prevent overflow */
+        justify-content: space-between;
     }
-    .lang-selector {
+
+    .burger-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        cursor: pointer;
+        z-index: 101;
+        position: relative; /* Ensure proper positioning context */
+    }
+
+    .burger-menu span {
+        height: 3px;
+        width: 100%;
+        background: #333;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+
+    .burger-menu.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+        position: relative; /* Ensure proper positioning */
+        z-index: 102; /* Higher z-index to appear above other elements */
+    }
+
+    .burger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger-menu.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+        position: relative; /* Ensure proper positioning */
+        z-index: 102; /* Higher z-index to appear above other elements */
+    }
+
+    /* Light mode for burger menu */
+    @media (prefers-color-scheme: light) and (max-width: 768px) {
+        .burger-menu span {
+            background: #333; /* Darker color for light mode */
+        }
+    }
+
+    /* Dark mode for burger menu */
+    @media (prefers-color-scheme: dark) and (max-width: 768px) {
+        .burger-menu span {
+            background: #ddd; /* Lighter color for dark mode */
+        }
+    }
+
+    /* Hide navigation links by default on mobile */
+    .nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        z-index: 99; /* Lower z-index to ensure burger menu stays on top */
+    }
+
+    /* Light mode for mobile menu */
+    @media (prefers-color-scheme: light) and (max-width: 768px) {
+        .nav {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 99; /* Ensure consistent z-index */
+        }
+
+        .nav a {
+            color: #333;
+        }
+
+        .nav a:hover {
+            background: rgba(214, 0, 0, 0.08);
+        }
+    }
+
+    /* Dark mode for mobile menu */
+    @media (prefers-color-scheme: dark) and (max-width: 768px) {
+        .nav {
+            background: rgba(30, 30, 30, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 99; /* Ensure consistent z-index */
+        }
+
+        .nav a {
+            color: #ddd;
+        }
+
+        .nav a:hover {
+            background: rgba(214, 0, 0, 0.15);
+        }
+    }
+
+    .nav.active {
+        display: flex;
+    }
+
+    .nav a {
+        display: block;
+        padding: 12px 20px;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
         margin-top: 10px;
-        align-self: center;
+        justify-content: space-between;
+        width: 100%;
     }
+
+    .download-btn {
+        margin-left: 0;
+        margin-top: 10px;
+        min-width: 120px; /* Increased minimum width for better text fit */
+        text-align: center; /* Center the text */
+        justify-content: center; /* Center the text */
+        display: flex;
+        align-items: center;
+        padding: 10px 15px; /* More consistent padding */
+    }
+
+    /* Disable video autoplay on mobile */
+    .hero-video {
+        display: none;
+    }
+
     .hero {
         padding: 40px 15px;
         min-height: auto; /* Allow to adjust based on content */
@@ -1139,6 +1375,27 @@ body {
     .lang-selector {
         font-size: 14px;
         padding: 6px 10px;
+    }
+
+    .download-btn {
+        font-size: 14px;
+        padding: 10px 12px !important; /* Consistent padding override */
+        margin-top: 10px;
+        min-width: 100px; /* Increased minimum width for small screens */
+        text-align: center; /* Center the text */
+        justify-content: center; /* Center the text */
+        display: flex !important;
+        align-items: center;
+    }
+
+    .cta, .author-btn, .demo-btn {
+        min-width: 100px; /* Ensure minimum width for text on small screens */
+        padding: 14px 16px; /* Increase padding for better touch targets */
+        margin: 8px 4px; /* Add margin for better spacing */
+    }
+
+    .footer {
+        padding: 6px; /* Еще меньший padding для мобильных устройств */
     }
     .hero { padding: 30px 10px; }
     .hero-content {

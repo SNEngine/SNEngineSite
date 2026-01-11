@@ -1,99 +1,65 @@
-// Language Manager
-class LanguageManager {
-  constructor() {
-    // Initialize with both language objects that will be loaded in HTML
-    this.translations = {
-      'en': typeof LANG_EN !== 'undefined' ? LANG_EN : {},
-      'ru': typeof LANG_RU !== 'undefined' ? LANG_RU : {}
-    };
-
-    this.currentLang = localStorage.getItem('snengine-lang') || 'en';
-
-    // Load the initial language
-    this.translatePage();
-  }
-
-  async loadLanguage(lang) {
-    // Just switch the language without loading anything
-    this.currentLang = lang;
-    localStorage.setItem('snengine-lang', lang);
-
-    // Update the language selector if it exists
-    const langSelector = document.getElementById('language-selector');
-    if (langSelector) {
-      langSelector.value = lang;
-    }
-
-    this.translatePage();
-  }
-  
-  translatePage() {
-    // Translate elements with data-i18n attribute
-    const elements = document.querySelectorAll('[data-i18n]');
-    elements.forEach(element => {
-      const key = element.getAttribute('data-i18n');
-      const translation = this.translations[this.currentLang][key];
-      
-      if (translation !== undefined) {
-        // Check if the element is an input or textarea for value attribute
-        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-          element.placeholder = translation;
-        } else {
-          // Check if translation contains HTML tags
-          if (translation.includes('<') && translation.includes('>')) {
-            element.innerHTML = translation;
-          } else {
-            element.textContent = translation;
-          }
-        }
-      }
-    });
+const LanguageManager = {
+    translations: {
+        'en': typeof LANG_EN !== 'undefined' ? LANG_EN : {},
+        'ru': typeof LANG_RU !== 'undefined' ? LANG_RU : {}
+    },
     
-    // Update the language selector UI
-    this.updateLanguageSelector();
-  }
-  
-  updateLanguageSelector() {
-    const langSelector = document.getElementById('language-selector');
-    if (langSelector) {
-      // Update the selected option
-      langSelector.value = this.currentLang;
-    }
-  }
-  
-  switchLanguage(lang) {
-    this.loadLanguage(lang);
-  }
-  
-  getCurrentLanguage() {
-    return this.currentLang;
-  }
-  
-  getTranslation(key) {
-    return this.translations[this.currentLang]?.[key] || key;
-  }
-}
+    currentLang: localStorage.getItem('snengine-lang') || 
+                (navigator.language.startsWith('ru') ? 'ru' : 'en'),
 
-// Initialize the language manager when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-  window.languageManager = new LanguageManager();
+    init() {
+        this.apply();
+        this.setupEventListeners();
+    },
 
-  // Add event listener for language selector if it exists
-  // We'll try to add the event listener after a short delay to ensure DOM is updated
-  setTimeout(() => {
-    const langSelector = document.getElementById('language-selector');
-    if (langSelector) {
-      langSelector.addEventListener('change', (event) => {
-        window.languageManager.switchLanguage(event.target.value);
-      });
-    }
-  }, 100);
+    set(lang) {
+        if (!this.translations[lang]) return;
+        this.currentLang = lang;
+        localStorage.setItem('snengine-lang', lang);
+        this.apply();
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+    },
 
-  // Listen for storage events to sync language across tabs/pages
-  window.addEventListener('storage', (event) => {
-    if (event.key === 'snengine-lang' && event.newValue !== event.oldValue) {
-      // Update the language if it was changed in another tab/window
-      window.languageManager.loadLanguage(event.newValue);
+    apply() {
+        document.documentElement.lang = this.currentLang;
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            const text = this.translations[this.currentLang][key];
+            
+            if (text) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = text;
+                } else if (text.includes('<') && text.includes('>')) {
+                    el.innerHTML = text;
+                } else {
+                    el.textContent = text;
+                }
+            }
+        });
+
+        const selectors = document.querySelectorAll('#language-selector');
+        selectors.forEach(s => { s.value = this.currentLang; });
+    },
+
+    setupEventListeners() {
+        document.addEventListener('change', (e) => {
+            if (e.target.id === 'language-selector') {
+                this.set(e.target.value);
+            }
+        });
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'snengine-lang' && e.newValue !== this.currentLang) {
+                this.set(e.newValue);
+            }
+        });
+
+        window.addEventListener('navFooterReady', () => {
+            this.apply();
+        });
     }
-  });
-});
+};
+
+document.addEventListener('DOMContentLoaded', () => LanguageManager.init());

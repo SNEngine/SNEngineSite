@@ -112,10 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAndRun();
 
   // Listen for language changes to update page-specific content
-  window.addEventListener('storage', (event) => {
-    if (event.key === 'snengine-lang' && event.newValue !== event.oldValue) {
-      // Re-initialize the page to update any page-specific content
-      initializeCodeEditorPage();
-    }
+  window.addEventListener('languageChanged', () => {
+    initializeCodeEditorPage();
   });
 });

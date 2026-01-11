@@ -702,15 +702,343 @@ body {
 
 /* Purpose Content Styling */
 .purpose-content {
-    max-width: 800px;
+    max-width: 1400px;
     margin: 0 auto 40px;
     text-align: left;
     line-height: 1.8;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.purpose-content .fake-code-editor {
+    flex: 1.2;
+    min-width: 450px;
+    max-width: 700px;
+}
+
+.purpose-content .text-content {
+    flex: 1;
+    min-width: 350px;
+    padding-top: 20px;
 }
 
 .purpose-content p {
     margin: 15px 0;
-    padding: 15px 0;
+    padding: 0;
+}
+
+/* Fake Code Editor Styles */
+.fake-code-editor {
+    background: #1f1f1f;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    color: #e8e8e8;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border: 1px solid #3a3a3a;
+    overflow: hidden;
+    min-height: 400px;
+    height: auto;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+/* Light mode adjustments for code editor */
+@media (prefers-color-scheme: light) {
+    .fake-code-editor {
+        background: #f8f8f8;
+        color: #24292f;
+        border: 1px solid #d0d7de;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    }
+
+    .code-header {
+        background: #f8f8f8;
+    }
+
+    .code-title {
+        color: #656d76;
+    }
+}
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animation for typing effect */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Cursor animation */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Cursor styling */
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.2em;
+    background-color: #e8e8e8;
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s infinite;
+}
+
+/* Mouse cursor indicator */
+.mouse-cursor {
+    position: absolute;
+    width: 10px;
+    height: 1.2em;
+    background-color: white;
+    z-index: 1000;
+    pointer-events: none;
+    transition: left 0.03s linear, top 0.03s linear, opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Light mode cursor */
+@media (prefers-color-scheme: light) {
+    .mouse-cursor {
+        background-color: black;
+    }
+}
+
+/* Blink animation for cursor */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .purpose-content {
+        max-width: 95%;
+    }
+
+    .purpose-content .fake-code-editor {
+        min-width: 350px;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .purpose-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .purpose-content .fake-code-editor {
+        min-width: 100%;
+        max-width: 100%;
+        order: 2; /* Show code editor below text on mobile */
+        padding: 12px; /* Reduce padding on mobile */
+    }
+
+    .purpose-content .text-content {
+        order: 1;
+        min-width: 100%;
+    }
+
+    /* Adjust code editor for mobile */
+    .code-lines {
+        font-size: 12px; /* Standard font for mobile */
+        padding-left: 22px;
+        overflow-x: auto; /* Allow horizontal scrolling for long lines */
+        white-space: nowrap; /* Prevent line wrapping */
+    }
+
+    .line-number::before {
+        width: 20px;
+        font-size: 11px;
+    }
+
+    .code-content {
+        margin-left: 4px; /* Standard margin on mobile */
+        font-size: 12px;
+        white-space: pre; /* Preserve whitespace */
+    }
+
+    /* Make sure the editor fits well on mobile */
+    .fake-code-editor {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .purpose-content .fake-code-editor {
+        min-width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        font-size: 12px; /* Standard font on very small screens */
+    }
+
+    .code-lines {
+        padding-left: 18px;
+        font-size: 12px;
+        overflow-x: auto; /* Allow horizontal scrolling for long lines */
+        white-space: nowrap; /* Prevent line wrapping */
+    }
+
+    .line-number::before {
+        width: 18px;
+        font-size: 11px;
+    }
+
+    .code-content {
+        font-size: 12px;
+        margin-left: 3px;
+        white-space: pre; /* Preserve whitespace */
+    }
+
+    .code-header {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .code-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .code-title {
+        font-size: 12px;
+    }
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3a3a3a;
+    position: sticky;
+    top: 0;
+    background: #1f1f1f;
+    z-index: 10;
+}
+
+/* Light mode adjustment for code header */
+@media (prefers-color-scheme: light) {
+    .code-header {
+        background: #f5f5f5;
+        border-bottom: 1px solid #ccc;
+    }
+}
+
+.code-title {
+    font-size: 14px;
+    color: #999;
+    font-weight: bold;
+}
+
+.code-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.code-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.code-dot-red { background: #ff5f56; }
+.code-dot-yellow { background: #ffbd2e; }
+.code-dot-green { background: #27c93f; }
+
+.code-lines {
+    counter-reset: line-number;
+    padding-left: 40px;
+    position: relative;
+    font-family: 'Courier New', monospace;
+    tab-size: 4;
+}
+
+.code-line {
+    min-height: 24px;
+    line-height: 1.5;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    align-items: flex-start;
+}
+
+.code-content {
+    flex: 1;
+    white-space: pre;
+    display: inline-block;
+    margin-left: 10px; /* Add margin to prevent overlap with line numbers */
+}
+
+.line-number::before {
+    counter-increment: line-number;
+    content: counter(line-number);
+    display: inline-block;
+    width: 30px;
+    color: #666;
+    margin-right: 15px;
+    text-align: right;
+    user-select: none;
+    flex: none;
+}
+
+/* Hide line numbers for empty lines - fallback approach */
+.code-line.empty-line .line-number::before {
+    content: "";
+    width: 0;
+    margin-right: 0;
+}
+
+/* CSS variables for syntax highlighting */
+:root {
+    /* Dark theme colors */
+    --comment-color: #608b4e;
+    --directive-color: #61afef;
+    --keyword-color: #ff6b6b;
+    --function-color: #56b6c2;
+    --parameter-color: #ffd700;
+    --dialogue-color: #abb2bf;
+    --string-color: #abb2bf;
+    --yaml-key-color: #d19a66;
+    --yaml-value-color: #98c379;
+    --line-number-color: #666;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        /* Light theme colors */
+        --comment-color: #6a737d;
+        --directive-color: #0550ae;
+        --keyword-color: #cf222e;
+        --function-color: #8250df;
+        --parameter-color: #953800;
+        --dialogue-color: #0a3069;
+        --string-color: #0a3069;
+        --yaml-key-color: #803378;
+        --yaml-value-color: #0550ae;
+        --line-number-color: #6e7781;
+    }
+}
+
+.code-comment { color: var(--comment-color); }
+.code-directive { color: var(--directive-color); font-weight: bold; }
+.code-keyword { color: var(--keyword-color); font-weight: bold; }
+.code-function { color: var(--function-color); font-weight: bold; }
+.code-parameter { color: var(--parameter-color); font-weight: bold; }
+.code-dialogue { color: var(--dialogue-color); }
+.code-string { color: var(--string-color); }
+.code-key { color: var(--yaml-key-color); font-weight: bold; } /* YAML keys */
+.code-value { color: var(--yaml-value-color); } /* YAML values */
+
+.line-number::before {
+    color: var(--line-number-color);
 }
 
 /* File Types Grid */
@@ -1034,6 +1362,18 @@ body {
 }
 
 .feature-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Reveal animation for sections */
+.section.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section.reveal.visible {
     opacity: 1;
     transform: translateY(0);
 }

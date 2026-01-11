@@ -92,11 +92,34 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section reveal">
   <h2 data-i18n="yaml_purpose_title">Purpose</h2>
   <div class="purpose-content">
-    <p data-i18n="yaml_purpose_text1">The SNEngine YAML Editor simplifies the process of creating and managing YAML localization files for visual novels built with the SNEngine framework. It's specifically designed to handle multi-language localization projects where each language has its own folder with YAML files containing translated content.</p>
-    <p data-i18n="yaml_purpose_text2">The editor provides tools for translators and developers to efficiently work with localization data, with special support for mobile game APK files.</p>
+    <div class="fake-code-editor">
+      <div class="code-header">
+        <div class="code-title">ui.yaml</div>
+        <div class="code-controls">
+          <div class="code-dot code-dot-red"></div>
+          <div class="code-dot code-dot-yellow"></div>
+          <div class="code-dot code-dot-green"></div>
+        </div>
+      </div>
+      <div class="code-lines">
+        <div class="code-line"><span class="line-number"></span><span class="code-content"><span class="code-comment"># Localization file for SNEngine visual novel</span></span></div>
+        <div class="code-line"><span class="line-number"></span><span class="code-content"><span class="code-comment"># Contains translations for UI elements and dialogue</span></span></div>
+        <div class="code-line"><span class="line-number"></span><span class="code-content"></span></div>
+        <div class="code-line"><span class="line-number"></span><span class="code-content"><span class="code-key">button_ok</span>: <span class="code-value">OK</span></span></div>
+        <div class="code-line"><span class="line-number"></span><span class="code-content"><span class="code-key">button_cancel</span>: <span class="code-value">Cancel</span></span></div>
+        <div class="code-line"><span class="line-number"></span><span class="code-content"><span class="code-key">settings</span>: <span class="code-value">Settings</span></span></div>
+        <div class="code-line"><span class="line-number"></span><span class="code-content"></span></div>
+        <div class="code-line"><span class="line-number"></span><span class="code-content"><span class="code-comment"># Complex data structures</span></span></div>
+        <div class="code-line"><span class="line-number"></span><span class="code-content"><span class="code-key">ability_3cc91cdb-8af8-48be-b768-cfdd37b72496_name</span>: <span class="code-value">Fireball</span></span></div>
+      </div>
+    </div>
+    <div class="text-content">
+      <p data-i18n="yaml_purpose_text1">The SNEngine YAML Editor simplifies the process of creating and managing YAML localization files for visual novels built with the SNEngine framework. It's specifically designed to handle multi-language localization projects where each language has its own folder with YAML files containing translated content.</p>
+      <p data-i18n="yaml_purpose_text2">The editor provides tools for translators and developers to efficiently work with localization data, with special support for mobile game APK files.</p>
+    </div>
   </div>
 
   <h2 data-i18n="yaml_file_types_title">Supported File Types</h2>

@@ -7,6 +7,7 @@ const LANG_RU = {
   nav_demo_game: "Демо-игра",
   nav_contacts: "Контакты",
   nav_download: "Скачать",
+
   
   // Hero section
   hero_title: "Создавайте визуальные новеллы в Unity без сложного программирования",
@@ -21,8 +22,6 @@ const LANG_RU = {
   platform_web: "Веб / ПК",
   platform_consoles: "Консоли",
   
-  // Download section
-  download_title: "Включенные функции",
   
   // Features
   feature_dialogue_system: "Диалоговая система на основе узлов",

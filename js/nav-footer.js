@@ -30,7 +30,7 @@ class NavFooterGenerator {
                     <option value="en">EN</option>
                     <option value="ru">RU</option>
                 </select>
-                <a href="https://github.com/SNEngine" class="download-btn" data-i18n="nav_download">Download</a>
+                <a href="https://github.com/SNEngine/SNEngine/releases" class="download-btn" data-i18n="nav_download" target="_blank">Download</a>
             </div>
         </div>`;
     }

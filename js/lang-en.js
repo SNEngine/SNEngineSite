@@ -7,7 +7,8 @@ const LANG_EN = {
   nav_demo_game: "Demo Game",
   nav_contacts: "Contacts",
   nav_download: "Download",
-  
+
+
   // Hero section
   hero_title: "Create Visual Novels in Unity Without Complex Coding",
   hero_subtitle: "Scene editor, dialogue builder, and export directly in Unity.",
@@ -21,8 +22,6 @@ const LANG_EN = {
   platform_web: "Web / PC",
   platform_consoles: "Consoles",
   
-  // Download section
-  download_title: "Included Features",
   
   // Features
   feature_dialogue_system: "Node-based Dialogue System",

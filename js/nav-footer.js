@@ -19,6 +19,7 @@ class NavFooterGenerator {
                     </div>
                     <nav class="nav">
                         <a href="index.html" class="${isActive('index.html')}" data-i18n="nav_main">Main</a>
+                        <a href="games.html" class="${isActive('games.html')}" data-i18n="nav_games">Games</a>
                         <a href="code-editor.html" class="${isActive('code-editor.html')}" data-i18n="nav_code_editor">Code Editor</a>
                         <a href="yaml-editor.html" class="${isActive('yaml-editor.html')}" data-i18n="nav_yaml_editor">YAML Editor</a>
                         <a href="https://github.com/SNEngine/SNEngineDocs" data-i18n="nav_docs">Docs</a>

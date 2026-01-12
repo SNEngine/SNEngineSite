@@ -118,5 +118,10 @@ const LANG_RU = {
   // Common
   footer_copyright: "SNEngine",
   screenshots_title: "Скриншоты",
-  key_features_title: "Ключевые особенности"
+  key_features_title: "Ключевые особенности",
+
+  // Games Page
+  games_title: "Игры SNEngine",
+  games_subtitle: "Откройте для себя удивительные визуальные новеллы, созданные с помощью SNEngine",
+  nav_games: "Игры"
 };

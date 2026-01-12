@@ -118,5 +118,10 @@ const LANG_EN = {
   // Common
   footer_copyright: "SNEngine",
   screenshots_title: "Screenshots",
-  key_features_title: "Key Features"
+  key_features_title: "Key Features",
+
+  // Games Page
+  games_title: "SNEngine Games",
+  games_subtitle: "Discover amazing visual novel games built with SNEngine",
+  nav_games: "Games"
 };

@@ -1,0 +1,20 @@
+[
+  {
+    "name": {
+      "en": "Nagatoro Novel Game",
+      "ru": "Nagatoro Novel Game"
+    },
+    "description": {
+      "en": "Demo Game for SNEngine.",
+      "ru": "Данная игра является демо для SNEngine. и также создана по мативам манги Nanashi (777)."
+    },
+    "preview": "images/game_preview.png",
+    "platforms": [
+      "windows",
+      "android"
+    ],
+    "status": "in development",
+    "downloadUrl": "",
+    "id": 1
+  }
+]

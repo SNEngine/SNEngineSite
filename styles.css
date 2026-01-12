@@ -1873,6 +1873,16 @@ body {
     font-size: 1.4em;
     color: #d60000;
     font-family: 'Roboto', Arial, sans-serif;
+    flex-grow: 1;
+    min-width: 200px; /* Чтобы заголовок не сжимался слишком сильно */
+}
+
+.title-status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; /* Небольшой зазор между заголовком и статусом */
+    width: 100%;
 }
 
 .status-badge {
@@ -1881,21 +1891,105 @@ body {
     font-size: 0.8em;
     font-weight: bold;
     text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 0; /* Убираем нижний отступ, так как теперь используется gap */
+    transition: all 0.3s ease;
 }
 
 .status-released {
     background: rgba(46, 204, 113, 0.2);
     color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.3);
 }
 
 .status-pre-release {
     background: rgba(241, 196, 15, 0.2);
     color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.3);
 }
 
 .status-in-development {
     background: rgba(52, 152, 219, 0.2);
     color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+/* Additional status styles to handle variations */
+.status-in .development {  /* Handle "in development" split due to space */
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.status-planned {
+    background: rgba(155, 89, 182, 0.2);
+    color: #9b59b6;
+    border: 1px solid rgba(155, 89, 182, 0.3);
+}
+
+.status-cancelled {
+    background: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.status-beta {
+    background: rgba(243, 156, 18, 0.2);
+    color: #f39c12;
+    border: 1px solid rgba(243, 156, 18, 0.3);
+}
+
+/* Fallback for any undefined status */
+.status-badge:not(.status-released):not(.status-pre-release):not(.status-in-development):not(.status-planned):not(.status-cancelled):not(.status-beta) {
+    background: rgba(149, 165, 166, 0.2);
+    color: #7f8c8d;
+    border: 1px solid rgba(149, 165, 166, 0.3);
+}
+
+/* Light theme adjustments for status badges */
+@media (prefers-color-scheme: light) {
+    .status-released {
+        background: rgba(46, 204, 113, 0.15);
+        color: #27ae60;
+        border: 1px solid rgba(46, 204, 113, 0.4);
+    }
+
+    .status-pre-release {
+        background: rgba(241, 196, 15, 0.15);
+        color: #d35400;
+        border: 1px solid rgba(241, 196, 15, 0.4);
+    }
+
+    .status-in-development {
+        background: rgba(52, 152, 219, 0.15);
+        color: #2980b9;
+        border: 1px solid rgba(52, 152, 219, 0.4);
+    }
+
+    .status-planned {
+        background: rgba(155, 89, 182, 0.15);
+        color: #8e44ad;
+        border: 1px solid rgba(155, 89, 182, 0.4);
+    }
+
+    .status-cancelled {
+        background: rgba(231, 76, 60, 0.15);
+        color: #c0392b;
+        border: 1px solid rgba(231, 76, 60, 0.4);
+    }
+
+    .status-beta {
+        background: rgba(243, 156, 18, 0.15);
+        color: #d35400;
+        border: 1px solid rgba(243, 156, 18, 0.4);
+    }
+
+    /* Fallback for any undefined status in light theme */
+    .status-badge:not(.status-released):not(.status-pre-release):not(.status-in-development):not(.status-planned):not(.status-cancelled):not(.status-beta) {
+        background: rgba(149, 165, 166, 0.15);
+        color: #7f8c8d;
+        border: 1px solid rgba(149, 165, 166, 0.4);
+    }
 }
 
 .card-content {
@@ -1904,13 +1998,15 @@ body {
     flex-direction: column;
     flex-grow: 1;
     text-align: center; /* Центрируем текст внутри */
+    min-height: 350px; /* Установим минимальную высоту для согласованности */
 }
 
 .card-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 .game-preview {
@@ -1933,36 +2029,38 @@ body {
 }
 
 .game-description {
-    margin: 15px 0 20px 0; /* Added top margin for better spacing from title */
+    margin: 10px 0 15px 0; /* Уменьшенные отступы сверху и снизу */
     line-height: 1.6; /* Slightly increased line height for better readability */
     color: #555;
     flex-grow: 1;
+    text-align: left; /* Выравнивание текста по левому краю */
 }
 
 .game-platforms {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
+    gap: 15px; /* Увеличиваем зазор между тегами платформ для компенсации вертикального расположения */
+    margin-bottom: 15px; /* Уменьшенный нижний отступ */
     justify-content: center; /* Центрируем теги платформ */
+    align-self: stretch; /* Растягиваем по ширине родителя */
 }
 
 .platform-tag {
     display: inline-flex;
+    flex-direction: column; /* Изменяем направление на вертикальное */
     align-items: center;
-    gap: 5px;
+    gap: 5px; /* Увеличиваем зазор между иконкой и текстом для вертикального расположения */
     background: rgba(214, 0, 0, 0.1);
     border-radius: 20px;
-    padding: 5px 10px;
-    margin-right: 8px;
-    margin-bottom: 8px;
+    padding: 5px 12px; /* Уменьшаем вертикальный отступ и увеличиваем горизонтальный */
+    min-width: 60px; /* Увеличиваем минимальную ширину */
     font-size: 0.85em;
     color: #d60000;
 }
 
 .platform-tag img {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     vertical-align: middle;
 }
 
@@ -1970,6 +2068,7 @@ body {
     margin-top: auto;
     display: flex;
     justify-content: center;
+    align-self: stretch; /* Растягиваем по ширине родителя */
 }
 
 .download-btn {

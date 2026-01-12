@@ -100,7 +100,9 @@ class GamesManager {
 
   createGameCard(game) {
     const card = document.createElement('div');
-    card.className = `game-card ${game.status}`;
+    // Normalize status for CSS class
+    const normalizedStatus = game.status.toLowerCase().replace(/\s+/g, '-');
+    card.className = `game-card ${normalizedStatus}`;
 
     const name = game.name[this.currentLanguage] || game.name.en;
     const description = game.description[this.currentLanguage] || game.description.en;
@@ -110,8 +112,10 @@ class GamesManager {
       ${preview ? `<img src="${preview}" alt="${name}" class="preview-image">` : ''}
       <div class="card-content">
         <div class="card-header">
-          <h3 class="game-title">${name}</h3>
-          ${this.createStatusBadge(game.status)}
+          <div class="title-status-container">
+            <h3 class="game-title">${name}</h3>
+            ${this.createStatusBadge(game.status)}
+          </div>
         </div>
         <p class="game-description">${description}</p>
         <div class="game-platforms">
@@ -155,32 +159,45 @@ class GamesManager {
   }
 
   createStatusBadge(status) {
+    // Normalize status to kebab-case for CSS class names
+    const normalizedStatus = status.toLowerCase().replace(/\s+/g, '-');
+
+    // Define status translations using the original format from JSON
     const statusTexts = {
       'released': { en: 'Released', ru: 'Выпущено' },
-      'in-development': { en: 'In Development', ru: 'В разработке' },
-      'pre-release': { en: 'Pre-release', ru: 'Предварительный релиз' }
+      'in development': { en: 'In Development', ru: 'В разработке' },
+      'pre release': { en: 'Pre-release', ru: 'Предварительный релиз' },
+      'in-development': { en: 'In Development', ru: 'В разработке' }, // Kebab-case version
+      'pre-release': { en: 'Pre-release', ru: 'Предварительный релиз' } // Kebab-case version
     };
-    const info = statusTexts[status] || { en: status, ru: status };
+
+    // Look up using the original status first, then the normalized version
+    const info = statusTexts[status.toLowerCase()] || statusTexts[normalizedStatus] || { en: status, ru: status };
     const text = info[this.currentLanguage] || info.en;
-    return `<span class="status-badge status-${status}">${text}</span>`;
+    return `<span class="status-badge status-${normalizedStatus}">${text}</span>`;
   }
 
   createDownloadButton(game) {
-    if (game.status !== 'released' || !game.downloadUrl) {
-      if (game.status === 'in-development') {
+    // Normalize status for comparison
+    const normalizedStatus = game.status.toLowerCase().replace(/\s+/g, '-');
+
+    // Кнопка скачивания доступна только для статусов released и beta
+    if ((normalizedStatus === 'released' || normalizedStatus === 'beta') && game.downloadUrl) {
+      const buttonText = this.currentLanguage === 'ru' ? 'Скачать' : 'Download';
+      return `<button class="download-btn" onclick="window.open('${game.downloadUrl}', '_blank')">${buttonText}</button>`;
+    } else {
+      // Для всех остальных статусов показываем кнопку как недоступную
+      if (normalizedStatus === 'in-development') {
         const text = this.currentLanguage === 'ru' ? 'Скоро' : 'Coming Soon';
         return `<button class="download-btn disabled" disabled>${text}</button>`;
-      } else if (game.status === 'pre-release') {
-        const text = this.currentLanguage === 'ru' ? 'Предзаказ' : 'Pre-order';
-        return `<button class="download-btn preorder" onclick="window.open('${game.downloadUrl}', '_blank')">${text}</button>`;
+      } else if (normalizedStatus === 'pre-release') {
+        const text = this.currentLanguage === 'ru' ? 'Недоступно' : 'Not Available';
+        return `<button class="download-btn disabled" disabled>${text}</button>`;
       } else {
         const text = this.currentLanguage === 'ru' ? 'Недоступно' : 'Not Available';
         return `<button class="download-btn disabled" disabled>${text}</button>`;
       }
     }
-
-    const buttonText = this.currentLanguage === 'ru' ? 'Скачать' : 'Download';
-    return `<button class="download-btn" onclick="window.open('${game.downloadUrl}', '_blank')">${buttonText}</button>`;
   }
 
 setupLanguageSwitching() {

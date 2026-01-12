@@ -19,7 +19,8 @@ const LANG_EN = {
   // Platforms
   platform_android: "Android",
   platform_ios: "iOS",
-  platform_web: "Web / PC",
+  platform_web: "Web",
+  platform_pc: "PC",
   platform_consoles: "Consoles",
   
   

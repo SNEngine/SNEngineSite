@@ -19,7 +19,8 @@ const LANG_RU = {
   // Platforms
   platform_android: "Android",
   platform_ios: "iOS",
-  platform_web: "Веб / ПК",
+  platform_web: "Веб",
+  platform_pc: "ПК",
   platform_consoles: "Консоли",
   
   

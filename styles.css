@@ -1449,14 +1449,9 @@ body {
     .cta:hover { background: #d60000; }
     .demo-btn { background-color: #8e44ad; }
     .demo-btn:hover { background-color: #9b59b6; }
-    .ios-light { display: none; }
-    .ios-dark { display: inline; }
 }
 
 /* Light mode */
-@media (prefers-color-scheme: light) {
-    .ios-light { display: inline; }
-    .ios-dark { display: none; }
 
     /* Light mode hero */
     .hero {

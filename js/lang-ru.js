@@ -124,5 +124,13 @@ const LANG_RU = {
   // Games Page
   games_title: "Игры SNEngine",
   games_subtitle: "Откройте для себя удивительные визуальные новеллы, созданные с помощью SNEngine",
-  nav_games: "Игры"
+  nav_games: "Игры",
+
+  // Terms Page
+  terms_title: "Условия и лицензия",
+  terms_subtitle: "ГЛОБАЛЬНАЯ ОТКРЫТАЯ И СОБСТВЕННАЯ ЛИЦЕНЗИЯ SNENGINE",
+  terms_view_en: "Просмотреть на английском",
+  terms_view_ru: "Просмотреть на русском",
+  terms_load_error: "Ошибка загрузки лицензионных условий. Пожалуйста, повторите попытку позже.",
+  nav_terms: "Условия"
 };

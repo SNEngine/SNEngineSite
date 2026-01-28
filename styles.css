@@ -2255,10 +2255,168 @@ body {
         gap: 8px;
         margin: 35px 0 15px 0;
     }
-    
+
     .pagination-btn {
         padding: 8px 14px;
         font-size: 14px;
         min-width: 40px;
+    }
+}
+
+/* Terms Page Styles */
+.terms-section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    margin-bottom: 40px;
+}
+
+.terms-content {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#license-content {
+    text-align: left;
+    line-height: 1.6;
+    max-width: 100%;
+    overflow-x: auto;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid #d60000;
+}
+
+#license-content h1 {
+    color: inherit;
+    font-size: 1.8em;
+    margin: 1.5em 0 1em 0;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid rgba(214, 0, 0, 0.2);
+}
+
+#license-content h2 {
+    color: inherit;
+    font-size: 1.5em;
+    margin: 1.3em 0 0.8em 0;
+}
+
+#license-content h3 {
+    color: inherit;
+    font-size: 1.3em;
+    margin: 1.2em 0 0.6em 0;
+}
+
+#license-content p {
+    margin: 0.8em 0;
+    line-height: 1.7;
+}
+
+#license-content strong {
+    color: inherit;
+}
+
+#license-content a {
+    color: #e74c3c;
+    text-decoration: underline;
+}
+
+#license-content a:hover {
+    color: #c0392b;
+    text-decoration: none;
+}
+
+.license-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Roboto', Arial, sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #d60000;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #b10000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background: rgba(214, 0, 0, 0.1);
+    color: #d60000;
+    border: 1px solid rgba(214, 0, 0, 0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(214, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode adjustments for terms page */
+@media (prefers-color-scheme: dark) {
+    .terms-section {
+        background: rgba(50, 50, 50, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    #license-content {
+        background: rgba(50, 50, 50, 0.1);
+    }
+
+    #license-content h1 {
+        border-bottom: 1px solid rgba(214, 0, 0, 0.3);
+    }
+}
+
+/* Mobile adjustments for terms page */
+@media (max-width: 768px) {
+    .terms-section {
+        padding: 20px 15px;
+        margin: 20px 10px;
+    }
+
+    .terms-content {
+        padding: 15px;
+    }
+
+    #license-content {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .license-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 300px;
     }
 }

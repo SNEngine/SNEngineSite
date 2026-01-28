@@ -124,5 +124,13 @@ const LANG_EN = {
   // Games Page
   games_title: "SNEngine Games",
   games_subtitle: "Discover amazing visual novel games built with SNEngine",
-  nav_games: "Games"
+  nav_games: "Games",
+
+  // Terms Page
+  terms_title: "Terms and License",
+  terms_subtitle: "SNENGINE GLOBAL PUBLIC & PROPRIETARY LICENSE",
+  terms_view_en: "View in English",
+  terms_view_ru: "View in Russian",
+  terms_load_error: "Error loading license terms. Please try again later.",
+  nav_terms: "Terms"
 };

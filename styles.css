@@ -1449,10 +1449,14 @@ body {
     .cta:hover { background: #d60000; }
     .demo-btn { background-color: #8e44ad; }
     .demo-btn:hover { background-color: #9b59b6; }
+    .footer {
+        background: #1a1a1a;
+        color: #aaa;
+    }
 }
 
 /* Light mode */
-
+@media (prefers-color-scheme: light) {
     /* Light mode hero */
     .hero {
         color: white;
